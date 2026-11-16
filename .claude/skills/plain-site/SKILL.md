@@ -67,6 +67,9 @@ The `site` block of `site.config.json`:
   `socialImage` is the site-wide link preview for pages with no `cover`.
 - `oauthUrl` — set only if the OAuth Worker in `workers/oauth/` is deployed; it
   turns the admin's sign-in into a "Sign in with GitHub" button.
+- `repoDir`, `buildWorkflow` — only when the site is a folder of a larger
+  repository (`"repoDir": "site"`): the admin then reads and writes inside that
+  folder and follows the named publish workflow. Leave both out otherwise.
 
 Commit as `settings: update site settings`.
 
@@ -121,6 +124,11 @@ i18n activates only when `site.languages` lists 2+ codes **and** includes
 files (`about.fr.md` → `/fr/about/`), menu labels come from
 `data/navigation.fr.json`, and UI strings from `data/strings.fr.json`. With one
 language the build is byte-identical to a site with no i18n at all.
+
+Dates print in each page's language code, so English pages read "July 5, 2026".
+For British or Irish style, map the language to a fuller locale in `site`:
+`"locales": { "en": "en-GB" }` (or `"en-IE"`). URLs and file suffixes keep `en`;
+only dates change. The key must be one of the site's languages.
 
 ## Publishing and checking a deploy
 
